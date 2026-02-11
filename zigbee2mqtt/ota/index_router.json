@@ -3296,5 +3296,47 @@
       "Zemi-2-gang",
       "zmlunnhy"
     ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-e51b9d92-from_tuya.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 180146,
+    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-e51b9d92-from_tuya.zigbee",
+    "imageType": 65535,
+    "manufacturerCode": 4417,
+    "sha512": "2009bff633c6277568b8c0d8f0b246dd85a43bea4267db3bfa6cdc040fc51bbf2bc531664ffbbb8ac83d8a58d05fb15e51bf74026f6a38928bf3aa702d1205b8",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3210_bfwvfyx1",
+      "bfwvfyx1"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-e51b9d92.zigbee",
+    "fileVersion": 285356033,
+    "fileSize": 181858,
+    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-e51b9d92.zigbee",
+    "imageType": 45641,
+    "manufacturerCode": 4417,
+    "sha512": "8c6876f9b135b84b07ce36232984148a404b530287599d6a665df62eaeea8fbd8914f23bbcb44d4f5ab71751612098312404831e62bda2d214f57e14abf44c7d",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3210_bfwvfyx1",
+      "bfwvfyx1"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-e51b9d92-from_tuya.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 181858,
+    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-e51b9d92-from_tuya.zigbee",
+    "imageType": 256,
+    "manufacturerCode": 4417,
+    "sha512": "03bca67dc37b1a3f9d0841d925248b905d7f2df531e662705c4d871efd4c298844da3344a40fc4eb35b39d639a3be9fdb9c1f1f4333ad19b530ab9333f23f123",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3210_bfwvfyx1",
+      "bfwvfyx1"
+    ]
   }
 ]

@@ -35,6 +35,7 @@ PROJ_SOURCES := \
 	$(SDK_PATH)/proj/drivers/drv_putchar.c \
 	$(SDK_PATH)/proj/drivers/drv_timer.c \
 	$(SDK_PATH)/proj/drivers/drv_uart.c \
+	$(SDK_PATH)/proj/drivers/drv_pwm.c \
 	$(SDK_PATH)/proj/drivers/drv_calibration.c \
 	$(SDK_PATH)/proj/drivers/drv_flash.c \
 	$(SDK_PATH)/proj/drivers/drv_hw.c \

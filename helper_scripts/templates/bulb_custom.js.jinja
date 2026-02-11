@@ -86,18 +86,26 @@ const romasku = {
 };
 
 const definitions = [
+{% for device in devices %}
     {
         zigbeeModel: [
-            "CK-BL702-AL-01_1",
+        {% for zb_model in device.zb_models %}
+            "{{zb_model}}",
+        {% endfor %}
         ],
-        model: "TS0505B",
+        model: "{{device.model}}",
         vendor: "Tuya-custom",
         description: "Custom bulb (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
             romasku.deviceConfig("device_config", undefined),
+            {% if device.has_dedicated_net_led %}
+            romasku.networkIndicator("network_led", undefined),
+            {% endif%}
             light({
-                colorTemp: {range: [153, 500]},
+                colorTemp: {range: {% if device.color_temp_range %}{{device.color_temp_range | tojson}}{% else %}[153, 500]{% endif %}},
+                {% if device.supports_color %}
                 color: {modes: ["xy", "hs"]},
+                {% endif %}
             }),
         ],
         configure: async (device, coordinatorEndpoint, logger) => {
@@ -106,6 +114,7 @@ const definitions = [
             await reporting.onOff(endpoint);
             await reporting.brightness(endpoint);
             await reporting.colorTemperature(endpoint);
+            {% if device.supports_color %}
             await endpoint.configureReporting('lightingColorCtrl', [{
                 attribute: 'currentX',
                 minimumReportInterval: 0,
@@ -117,9 +126,11 @@ const definitions = [
                 maximumReportInterval: constants.repInterval.HOUR,
                 reportableChange: 1,
             }]);
+            {% endif %}
         },
         ota: true,
     },
+{% endfor %}
 ];
 
 module.exports = definitions;

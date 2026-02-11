@@ -48,6 +48,7 @@
 #define ZCL_ON_OFF_SUPPORT             1 /* On/Off cluster */
 #define ZCL_ONOFF_CONFIGUATION         1 /* On/Off cluster configuration */
 #define ZCL_LEVEL_CTRL                 1 /* Level control cluster */
+#define ZCL_LIGHT_COLOR_CONTROL        1 /* Light color control cluster */
 /* #define ZCL_IAS_ZONE_SUPPORT 1     */ /* IAS Zone cluster (disabled) */
 #define ZCL_POLL_CTRL_SUPPORT          0 /* Poll control cluster */
 #define ZCL_GROUP_SUPPORT              1 /* Groups cluster */

@@ -35,10 +35,15 @@ update_converters:
 		> zigbee2mqtt/converters/tuya_with_ota.js 
 	python3 helper_scripts/make_z2m_tuya_converters.py --z2m-v1 device_db.yaml \
 		> zigbee2mqtt/converters_v1/tuya_with_ota.js 
-	python3 helper_scripts/make_z2m_custom_converters.py device_db.yaml \
+	python3 helper_scripts/make_z2m_custom_converters.py --output-type switch device_db.yaml \
 		> zigbee2mqtt/converters/switch_custom.js 
-	python3 helper_scripts/make_z2m_custom_converters.py --z2m-v1 device_db.yaml \
+	python3 helper_scripts/make_z2m_custom_converters.py --output-type switch --z2m-v1 device_db.yaml \
 		> zigbee2mqtt/converters_v1/switch_custom.js 
+	python3 helper_scripts/make_z2m_custom_converters.py --output-type bulb device_db.yaml \
+		> zigbee2mqtt/converters/bulb_custom.js 
+	python3 helper_scripts/make_z2m_custom_converters.py --output-type bulb --z2m-v1 device_db.yaml \
+		> zigbee2mqtt/converters_v1/bulb_custom.js 
+	@echo "Generated switch and bulb converters for Zigbee2MQTT" 
 
 
 update_zha_quirk:

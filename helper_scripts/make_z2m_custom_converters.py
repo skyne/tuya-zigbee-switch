@@ -22,13 +22,18 @@ if __name__ == "__main__":
     parser.add_argument(
         "--z2m-v1", action=argparse.BooleanOptionalAction, help="Use old z2m"
     )
+    parser.add_argument(
+        "--output-type", type=str, choices=["switch", "bulb"], default="switch",
+        help="Type of converter to generate (switch or bulb)"
+    )
 
     args = parser.parse_args()
 
     db_str = Path(args.db_file).read_text()
     db = yaml.safe_load(db_str)
 
-    devices = []
+    switch_devices = []
+    bulb_devices = []
 
     for device in db.values():
 
@@ -38,6 +43,18 @@ if __name__ == "__main__":
       
         config = device["config_str"]
         zb_manufacturer, zb_model, *peripherals = config.rstrip(";").split(";")
+        
+        # Check if this is a bulb device
+        category = device.get("category", "module")
+        if category == "bulb":
+            bulb_devices.append({
+                "zb_models": [zb_model] + (device.get("old_zb_models") or []),
+                "model": device.get("override_z2m_device") or device["stock_converter_model"],
+                "has_dedicated_net_led": device.get("has_dedicated_net_led", False),
+                "supports_color": device.get("supports_color", False),
+                "color_temp_range": device.get("color_temp_range", [153, 500]),
+            })
+            continue
 
         relay_cnt = 0
         switch_cnt = 0
@@ -85,7 +102,7 @@ if __name__ == "__main__":
         else:
             cover_names = [f"cover_{index}" for index in range(cover_cnt)]
         
-        devices.append({
+        switch_devices.append({
             "zb_models": [zb_model] + (device.get("old_zb_models") or []),
             "model": device.get("override_z2m_device") or device["stock_converter_model"],
             "switchNames": switch_names,
@@ -95,9 +112,15 @@ if __name__ == "__main__":
             "has_dedicated_net_led": has_dedicated_net_led,
         })
 
-    template = env.get_template("switch_custom.js.jinja")
-
-    print(template.render(devices=devices, z2m_v1=args.z2m_v1))
+    # Generate switch converters
+    if args.output_type == "switch":
+        template = env.get_template("switch_custom.js.jinja")
+        print(template.render(devices=switch_devices, z2m_v1=args.z2m_v1))
+    
+    # Generate bulb converters
+    elif args.output_type == "bulb":
+        bulb_template = env.get_template("bulb_custom.js.jinja")
+        print(bulb_template.render(devices=bulb_devices, z2m_v1=args.z2m_v1))
 
     exit(0)
 

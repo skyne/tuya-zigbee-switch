@@ -1758,5 +1758,19 @@
       "Zemi-2-gang",
       "zmlunnhy"
     ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-e51b9d92-forced.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 181858,
+    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-e51b9d92-forced.zigbee",
+    "imageType": 45641,
+    "manufacturerCode": 4417,
+    "sha512": "7b2d9db3feeae14ac35194d145d097704ec5fd501e95b7d56f44f62d5f5e60d403bf8ed28b1caf5479d63295538f2f114d13b2704a13100a573378c20fa47d59",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3210_bfwvfyx1",
+      "bfwvfyx1"
+    ]
   }
 ]
