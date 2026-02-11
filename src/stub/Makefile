@@ -58,7 +58,8 @@ SOURCES := \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/group_cluster.c \
 	$(SRC_DIR)/zigbee/general_commands.c \
-	$(SRC_DIR)/zigbee/cover_cluster.c
+	$(SRC_DIR)/zigbee/cover_cluster.c \
+	$(SRC_DIR)/zigbee/light_cluster.c
 
 INCLUDES := \
 	-I$(SRC_DIR) \

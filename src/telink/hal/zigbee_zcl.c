@@ -11,6 +11,15 @@
 #include "hal/zigbee.h"
 #include "telink_zigbee_hal.h"
 
+#ifndef ZCL_CLUSTER_LIGHT_COLOR_CONTROL
+#define ZCL_CLUSTER_LIGHT_COLOR_CONTROL    0x0300
+#endif
+
+extern status_t zcl_lightColorCtrl_register(u8 endpoint, u16 manuCode,
+                                            u8 attrNum,
+                                            const zclAttrInfo_t attrTbl[],
+                                            cluster_forAppCb_t cb);
+
 // Storage for Telink endpoint configuration
 static af_simple_descriptor_t endpoint_descriptors[MAX_ENDPOINTS];
 static u16 in_clusters[MAX_IN_CLUSTERS];
@@ -39,6 +48,9 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == ZCL_CLUSTER_GEN_LEVEL_CONTROL) { // Level Control cluster
         return zcl_level_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_LIGHT_COLOR_CONTROL) { // Color Control cluster
+        return zcl_lightColorCtrl_register;
     }
     if (cluster_id == ZCL_CLUSTER_GEN_ON_OFF) { // On/Off cluster
         return zcl_onOff_register;
@@ -70,6 +82,18 @@ static status_t cmd_callback_on_off(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
                         cmdPayload);
 }
 
+static status_t cmd_callback_level(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
+                                   void *cmdPayload) {
+    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_LEVEL_CONTROL, cmdId,
+                        cmdPayload);
+}
+
+static status_t cmd_callback_color(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
+                                   void *cmdPayload) {
+    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_LIGHT_COLOR_CONTROL, cmdId,
+                        cmdPayload);
+}
+
 static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
                                              void *cmdPayload) {
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING, cmdId,
@@ -79,6 +103,12 @@ static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo, u
 static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_ON_OFF) { // On/Off cluster
         return cmd_callback_on_off;
+    }
+    if (cluster_id == ZCL_CLUSTER_GEN_LEVEL_CONTROL) { // Level Control cluster
+        return cmd_callback_level;
+    }
+    if (cluster_id == ZCL_CLUSTER_LIGHT_COLOR_CONTROL) { // Color Control cluster
+        return cmd_callback_color;
     }
     if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) { // Window Covering cluster
         return cmd_callback_window_covering;

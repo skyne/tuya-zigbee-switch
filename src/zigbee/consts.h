@@ -11,6 +11,7 @@
 #define ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG      7
 #define ZCL_CLUSTER_MULTISTATE_INPUT_BASIC    0x0012
 #define ZCL_CLUSTER_LEVEL_CONTROL             0x0008
+#define ZCL_CLUSTER_COLOR_CONTROL             0x0300
 #define ZCL_CLUSTER_GROUPS                    0x0004
 #define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
 #define ZCL_CLUSTER_WINDOW_COVERING           0x0102
@@ -50,6 +51,10 @@
 #define ZCL_ATTR_ONOFF_INDICATOR_MODE     0xff01
 #define ZCL_ATTR_ONOFF_INDICATOR_STATE    0xff02
 
+// Level cluster
+
+#define ZCL_ATTR_LEVEL_CURRENT_LEVEL      0x0000
+
 // OnOff configuration cluster
 
 #define ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_TYPE               0x0000
@@ -79,6 +84,13 @@
 #define ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE    0x0008
 #define ZCL_ATTR_WINDOW_COVERING_MOVING                              0xff00
 #define ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL                      0xff01
+
+// Color control cluster
+
+#define ZCL_ATTR_COLOR_CONTROL_CURRENT_X      0x0003
+#define ZCL_ATTR_COLOR_CONTROL_CURRENT_Y      0x0004
+#define ZCL_ATTR_COLOR_CONTROL_COLOR_TEMP     0x0007
+#define ZCL_ATTR_COLOR_CONTROL_COLOR_MODE     0x0008
 
 // OTA cluster
 
@@ -140,6 +152,11 @@
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING    0x01
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING    0x02
 
+// Color control cluster
+
+#define ZCL_COLOR_MODE_CURRENT_XY           0x00
+#define ZCL_COLOR_MODE_COLOR_TEMPERATURE    0x02
+
 // Commands
 
 // OnOff Cluster
@@ -161,6 +178,11 @@
 #define ZCL_CMD_LEVEL_MOVE_WITH_ON_OFF             0x05
 #define ZCL_CMD_LEVEL_STEP_WITH_ON_OFF             0x06
 #define ZCL_CMD_LEVEL_STOP_WITH_ON_OFF             0x07
+
+// Color Control Cluster
+
+#define ZCL_CMD_COLOR_MOVE_TO_COLOR                0x07
+#define ZCL_CMD_COLOR_MOVE_TO_COLOR_TEMPERATURE    0x0A
 
 // WindowCovering Cluster
 

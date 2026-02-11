@@ -7,6 +7,7 @@
 #include "zigbee/relay_cluster.h"
 #include "zigbee/switch_cluster.h"
 #include "zigbee/cover_cluster.h"
+#include "zigbee/light_cluster.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -54,6 +55,9 @@ uint8_t relay_clusters_cnt = 0;
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
 
+zigbee_light_cluster light_clusters[4];
+uint8_t light_clusters_cnt = 0;
+
 hal_zigbee_cluster  clusters[32];
 hal_zigbee_endpoint endpoints[10];
 
@@ -90,6 +94,7 @@ void parse_config() {
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
     bool  has_dedicated_status_led = false;
+    zigbee_light_cluster *current_light = NULL;
     char *entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
          entry = extract_next_entry(&cursor)) {
@@ -207,6 +212,58 @@ void parse_config() {
             cover_clusters[cover_clusters_cnt].close_relay = close_relay;
             cover_clusters[cover_clusters_cnt].cover_idx   = cover_clusters_cnt;
             cover_clusters_cnt++;
+        } else if (entry[0] == 'U') {
+            zigbee_light_cluster *light =
+                &light_clusters[light_clusters_cnt];
+            light_cluster_init(light);
+            if (strchr(entry, 'L') != NULL) {
+                light->supports_level = 1;
+            }
+            if (strchr(entry, 'T') != NULL) {
+                light->supports_color_temp = 1;
+            }
+            if (strchr(entry, 'R') != NULL) {
+                light->supports_color_xy = 1;
+            }
+            light_clusters_cnt++;
+            current_light = light;
+        } else if (entry[0] == 'P') {
+            if (current_light == NULL) {
+                continue;
+            }
+
+            char channel = entry[1];
+            uint8_t invert = entry[strlen(entry) - 1] == 'i';
+            hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
+            if (pin == HAL_INVALID_PIN) {
+                continue;
+            }
+            hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
+
+            switch (channel) {
+            case 'R':
+                current_light->pin_r = pin;
+                current_light->pin_r_on_high = invert ? 0 : 1;
+                break;
+            case 'G':
+                current_light->pin_g = pin;
+                current_light->pin_g_on_high = invert ? 0 : 1;
+                break;
+            case 'B':
+                current_light->pin_b = pin;
+                current_light->pin_b_on_high = invert ? 0 : 1;
+                break;
+            case 'C':
+                current_light->pin_c = pin;
+                current_light->pin_c_on_high = invert ? 0 : 1;
+                break;
+            case 'W':
+                current_light->pin_w = pin;
+                current_light->pin_w_on_high = invert ? 0 : 1;
+                break;
+            default:
+                break;
+            }
         } else if (entry[0] == 'i') {
             uint32_t image_type = parse_int(entry + 1);
             hal_zigbee_set_image_type(image_type);
@@ -220,10 +277,12 @@ void parse_config() {
 
     periferals_init();
 
-    printf("Initializing Zigbee with %d switches, %d relays, %d covers\r\n",
-           switch_clusters_cnt, relay_clusters_cnt, cover_clusters_cnt);
+        printf("Initializing Zigbee with %d switches, %d relays, %d covers, %d lights\r\n",
+            switch_clusters_cnt, relay_clusters_cnt, cover_clusters_cnt,
+            light_clusters_cnt);
 
-    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt + cover_clusters_cnt;
+        uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
+                      cover_clusters_cnt + light_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
@@ -246,28 +305,45 @@ void parse_config() {
     hal_ota_cluster_setup(&endpoints[0].clusters[endpoints[0].cluster_count]);
     endpoints[0].cluster_count++;
 
+    int endpoint_index = 0;
     for (int index = 0; index < switch_clusters_cnt; index++) {
-        if (index != 0) {
-            cluster_ptr += endpoints[index - 1].cluster_count;
-            endpoints[index].clusters = cluster_ptr;
+        if (endpoint_index != 0) {
+            cluster_ptr += endpoints[endpoint_index - 1].cluster_count;
+            endpoints[endpoint_index].clusters = cluster_ptr;
         }
-        switch_cluster_add_to_endpoint(&switch_clusters[index], &endpoints[index]);
+        switch_cluster_add_to_endpoint(&switch_clusters[index],
+                                       &endpoints[endpoint_index]);
+        endpoint_index++;
     }
     for (int index = 0; index < relay_clusters_cnt; index++) {
-        cluster_ptr += endpoints[switch_clusters_cnt + index - 1].cluster_count;
-        endpoints[switch_clusters_cnt + index].clusters = cluster_ptr;
+        if (endpoint_index != 0) {
+            cluster_ptr += endpoints[endpoint_index - 1].cluster_count;
+            endpoints[endpoint_index].clusters = cluster_ptr;
+        }
         relay_cluster_add_to_endpoint(&relay_clusters[index],
-                                      &endpoints[switch_clusters_cnt + index]);
+                                      &endpoints[endpoint_index]);
         // Group cluster is stateless, safe to add to multiple endpoints
         group_cluster_add_to_endpoint(&group_cluster,
-                                      &endpoints[switch_clusters_cnt + index]);
+                                      &endpoints[endpoint_index]);
+        endpoint_index++;
     }
-    int cover_base = switch_clusters_cnt + relay_clusters_cnt;
     for (int index = 0; index < cover_clusters_cnt; index++) {
-        cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
-        endpoints[cover_base + index].clusters = cluster_ptr;
+        if (endpoint_index != 0) {
+            cluster_ptr += endpoints[endpoint_index - 1].cluster_count;
+            endpoints[endpoint_index].clusters = cluster_ptr;
+        }
         cover_cluster_add_to_endpoint(&cover_clusters[index],
-                                      &endpoints[cover_base + index]);
+                                      &endpoints[endpoint_index]);
+        endpoint_index++;
+    }
+    for (int index = 0; index < light_clusters_cnt; index++) {
+        if (endpoint_index != 0) {
+            cluster_ptr += endpoints[endpoint_index - 1].cluster_count;
+            endpoints[endpoint_index].clusters = cluster_ptr;
+        }
+        light_cluster_add_to_endpoint(&light_clusters[index],
+                                      &endpoints[endpoint_index]);
+        endpoint_index++;
     }
 
     hal_zigbee_init(endpoints, total_endpoints);

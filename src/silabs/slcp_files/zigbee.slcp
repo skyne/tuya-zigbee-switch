@@ -45,6 +45,7 @@ source:
 - {path: ../../zigbee/relay_cluster.c}
 - {path: ../../zigbee/switch_cluster.c}
 - {path: ../../zigbee/cover_cluster.c}
+- {path: ../../zigbee/light_cluster.c}
 - {path: ../../zigbee/basic_cluster.h}
 - {path: ../../zigbee/cluster_common.h}
 - {path: ../../zigbee/consts.h}
@@ -52,6 +53,7 @@ source:
 - {path: ../../zigbee/relay_cluster.h}
 - {path: ../../zigbee/switch_cluster.h}
 - {path: ../../zigbee/cover_cluster.h}
+- {path: ../../zigbee/light_cluster.h}
 - {path: ../../zigbee/zigbee_commands.h}
 - {path: ../../zigbee/general_commands.h}
 - {path: ../../zigbee/group_cluster.h}

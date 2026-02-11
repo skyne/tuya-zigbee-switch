@@ -143,6 +143,32 @@ BOARD__ZIGBEE_ZTU_2:
   info: Supported
   threads: null
   store: https://www.aliexpress.com/item/1005007599675462.html
+BULB_TUYA_TS0505B:
+  human_name: eWeLink 15W E27 RGBCW bulb
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0505B
+  stock_manufacturer_name: _TZ3210_bfwvfyx1
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0505B
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: bfwvfyx1;CK-BL702-AL-01_1;ULRT;PRA0;PGB1;PBC0;PCD2;PWD3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 45641
+  build: yes
+  status: in_progress
+  info: Pinout unknown; trial config uses PR/PG/PB/PC/PW mappings
+  threads: null
+  store: null
 MODULE_AUBESS_TS0001:
   human_name: Aubess WHD02
   category: module

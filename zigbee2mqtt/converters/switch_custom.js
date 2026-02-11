@@ -636,6 +636,23 @@ const definitions = [
     },
     {
         zigbeeModel: [
+            "CK-BL702-AL-01_1",
+        ],
+        model: "TS0505B",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {} }),
+            romasku.deviceConfig("device_config", ""),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
             "WHD02-Aubess",
             "WHD02-Aubess-ED",
         ],
