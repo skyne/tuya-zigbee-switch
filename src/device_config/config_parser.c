@@ -93,7 +93,7 @@ void parse_config() {
     }
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
-    bool  has_dedicated_status_led = false;
+    bool has_dedicated_status_led       = false;
     zigbee_light_cluster *current_light = NULL;
     char *entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
@@ -232,9 +232,9 @@ void parse_config() {
                 continue;
             }
 
-            char channel = entry[1];
-            uint8_t invert = entry[strlen(entry) - 1] == 'i';
-            hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
+            char           channel = entry[1];
+            uint8_t        invert  = entry[strlen(entry) - 1] == 'i';
+            hal_gpio_pin_t pin     = hal_gpio_parse_pin(entry + 2);
             if (pin == HAL_INVALID_PIN) {
                 continue;
             }
@@ -242,23 +242,23 @@ void parse_config() {
 
             switch (channel) {
             case 'R':
-                current_light->pin_r = pin;
+                current_light->pin_r         = pin;
                 current_light->pin_r_on_high = invert ? 0 : 1;
                 break;
             case 'G':
-                current_light->pin_g = pin;
+                current_light->pin_g         = pin;
                 current_light->pin_g_on_high = invert ? 0 : 1;
                 break;
             case 'B':
-                current_light->pin_b = pin;
+                current_light->pin_b         = pin;
                 current_light->pin_b_on_high = invert ? 0 : 1;
                 break;
             case 'C':
-                current_light->pin_c = pin;
+                current_light->pin_c         = pin;
                 current_light->pin_c_on_high = invert ? 0 : 1;
                 break;
             case 'W':
-                current_light->pin_w = pin;
+                current_light->pin_w         = pin;
                 current_light->pin_w_on_high = invert ? 0 : 1;
                 break;
             default:
@@ -277,12 +277,12 @@ void parse_config() {
 
     periferals_init();
 
-        printf("Initializing Zigbee with %d switches, %d relays, %d covers, %d lights\r\n",
-            switch_clusters_cnt, relay_clusters_cnt, cover_clusters_cnt,
-            light_clusters_cnt);
+    printf("Initializing Zigbee with %d switches, %d relays, %d covers, %d lights\r\n",
+           switch_clusters_cnt, relay_clusters_cnt, cover_clusters_cnt,
+           light_clusters_cnt);
 
-        uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
-                      cover_clusters_cnt + light_clusters_cnt;
+    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
+                              cover_clusters_cnt + light_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
