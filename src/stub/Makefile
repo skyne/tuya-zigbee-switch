@@ -39,6 +39,7 @@ SOURCES := \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \
 	$(SRC_DIR)/stub/hal/nvm.c \
+	$(SRC_DIR)/stub/hal/pwm.c \
 	$(SRC_DIR)/stub/hal/zigbee.c \
 	$(SRC_DIR)/stub/hal/ota.c \
 	$(SRC_DIR)/stub/simple_repl.c \

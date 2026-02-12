@@ -66,7 +66,7 @@ const romasku = {
                 for (const part of parts.slice(2)) {
                     if (part == 'SLP') {
                         continue;   
-                    } if (part[0] == 'P' && part.length == 4) {
+                    } if (part[0] == 'P' && part.length == 4 || (part.length == 5 && part[part.length-1] == 'i')) {
                         // PWM pin configuration (e.g., PRA0, PGB1, etc.)
                         validatePin(part.slice(2,4));
                     } else if (part[0] == 'U') {
@@ -96,8 +96,9 @@ const definitions = [
         extend: [
             romasku.deviceConfig("device_config", undefined),
             light({
-                colorTemp: {range: [153, 500]},
+                colorTemp: {range: [153, 500], startup: true},
                 color: {modes: ["xy", "hs"]},
+                powerOnBehavior: true,
             }),
         ],
         configure: async (device, coordinatorEndpoint, logger) => {

@@ -13,7 +13,7 @@ NVM_MIGRATIONS_VERSION ?= $(shell cat ../../NVM_MIGRATIONS_VERSION 2>/dev/null |
 
 FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
-DEBUG ?= 0
+DEBUG ?= 1
 CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
 MANUFACTURER_ID ?= 4417
 IMAGE_TYPE ?= 43521
@@ -91,7 +91,7 @@ DEVICE_DEFS := \
 	$(TEL_CHIP) 
 
 ifeq ($(DEBUG), 1)
-	DEVICE_DEFS := $(DEVICE_DEFS) -DUART_PRINTF_MODE=1
+	DEVICE_DEFS := $(DEVICE_DEFS) -DUART_PRINTF_MODE=1 -DDEBUG_BAUDRATE=19200
 endif
 
 # Include paths (SDK paths first to avoid conflicts)

@@ -363,6 +363,7 @@ void network_indicator_on_network_status_change(
     if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
         network_indicator_connected(&network_indicator);
         update_relay_clusters();
+        update_light_clusters();
     } else {
         network_indicator_not_connected(&network_indicator);
     }

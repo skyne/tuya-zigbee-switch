@@ -14,8 +14,12 @@ struct zigbee_light_cluster {
     uint8_t  level;
     uint16_t current_x;
     uint16_t current_y;
+    uint8_t  current_hue;
+    uint8_t  current_saturation;
     uint16_t color_temp;
     uint8_t  color_mode;
+    uint8_t  startup_onoff;
+    uint16_t startup_color_temp;
 
     uint8_t  supports_level;
     uint8_t  supports_color_xy;
@@ -33,9 +37,9 @@ struct zigbee_light_cluster {
     uint8_t  pin_c_on_high;
     uint8_t  pin_w_on_high;
 
-    hal_zigbee_attribute onoff_attr_infos[1];
+    hal_zigbee_attribute onoff_attr_infos[2];
     hal_zigbee_attribute level_attr_infos[1];
-    hal_zigbee_attribute color_attr_infos[4];
+    hal_zigbee_attribute color_attr_infos[8];
 
     void (*output_callback)(zigbee_light_cluster *cluster);
 };
@@ -49,5 +53,8 @@ void light_cluster_add_to_endpoint(zigbee_light_cluster *cluster,
 void light_cluster_callback_attr_write_trampoline(uint8_t endpoint,
                                                   uint16_t cluster_id,
                                                   uint16_t attribute_id);
+
+void light_cluster_handle_startup_mode(zigbee_light_cluster *cluster);
+void update_light_clusters();
 
 #endif

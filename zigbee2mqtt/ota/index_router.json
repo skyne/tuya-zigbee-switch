@@ -3312,13 +3312,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-e51b9d92.zigbee",
-    "fileVersion": 285356033,
-    "fileSize": 181858,
-    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-e51b9d92.zigbee",
+    "fileName": "tlc_switch-1.1.2-2f5c3b78.zigbee",
+    "fileVersion": 285356034,
+    "fileSize": 184882,
+    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-2f5c3b78.zigbee",
     "imageType": 45641,
     "manufacturerCode": 4417,
-    "sha512": "8c6876f9b135b84b07ce36232984148a404b530287599d6a665df62eaeea8fbd8914f23bbcb44d4f5ab71751612098312404831e62bda2d214f57e14abf44c7d",
+    "sha512": "c5d931070e365613be5bb481600ddb0320d79a06eb87f2d597db84cd977ebdc59e2a6ea700ca549743d05ce98b40416293bba7d19ad0a663c77a22436b948d12",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3210_bfwvfyx1",
@@ -3326,13 +3326,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-e51b9d92-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-2f5c3b78-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 181858,
-    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-e51b9d92-from_tuya.zigbee",
+    "fileSize": 184882,
+    "url": "https://github.com/skyne/tuya-zigbee-switch/raw/refs/heads/feature/bulb/bin/router/BULB_TUYA_TS0505B/tlc_switch-1.1.2-2f5c3b78-from_tuya.zigbee",
     "imageType": 256,
     "manufacturerCode": 4417,
-    "sha512": "03bca67dc37b1a3f9d0841d925248b905d7f2df531e662705c4d871efd4c298844da3344a40fc4eb35b39d639a3be9fdb9c1f1f4333ad19b530ab9333f23f123",
+    "sha512": "c103e6dfc6ce647df4e85f0f190c711d898e31f08b29cd64b0c87e29fef8f4d1570a2b1472349c1a5972c4bd62840c547391b7a43ee3826ed9446efa4b6abdfa",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3210_bfwvfyx1",

@@ -96,8 +96,9 @@ const definitions = [
         extend: [
             romasku.deviceConfig("device_config", undefined),
             light({
-                colorTemp: {range: [153, 500]},
+                colorTemp: {range: [153, 500], startup: true},
                 color: {modes: ["xy", "hs"]},
+                powerOnBehavior: true,
             }),
         ],
         configure: async (device, coordinatorEndpoint, logger) => {
